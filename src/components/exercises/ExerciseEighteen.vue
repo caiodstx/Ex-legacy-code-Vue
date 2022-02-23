@@ -5,23 +5,36 @@
 
     <p class="subheading font-weight-regular">Report card</p>
 
-    <v-toolbar dark class="d-flex justify-space-around form-container">
-      <v-toolbar-title>Enter your qualification</v-toolbar-title>
-      <v-form ref="form" class="d-inline-flex">
-        <v-text-field
-          v-model="num"
-          label="Num"
-          counter
-          maxlength="2"
-          required
-          id="num-input"
-        ></v-text-field>
+    <v-row>
+      <v-col>
+        <v-toolbar dark class="d-flex justify-space-around form-container">
+          <v-toolbar-title>Alumn Information</v-toolbar-title>
+          <v-form ref="form" class="d-inline-flex">
+            <v-text-field v-model="name" label="Name" required></v-text-field>
 
-        <v-btn class="grey darken-1" v-on:click="reportCard()"> submit </v-btn>
-      </v-form>
-    </v-toolbar>
+            <v-text-field
+              v-model="subject"
+              label="Subject"
+              required
+            ></v-text-field>
+
+            <v-text-field
+              v-model="num"
+              label="Num"
+              counter
+              maxlength="2"
+              required
+            ></v-text-field>
+            <v-btn class="grey darken-1" v-on:click="reportCard()">
+              submit
+            </v-btn>
+          </v-form>
+        </v-toolbar>
+      </v-col>
+    </v-row>
 
     <div id="result-container">
+      <h1>{{ name }}</h1>
       <h2 id="result">{{ result }}</h2>
     </div>
   </v-container>
@@ -31,8 +44,16 @@
 export default {
   name: "Exercises",
 
+  data() {
+    return {
+      show: false,
+    };
+  },
+
   props: {
     num: {},
+    name: {},
+    subject: {},
     result: {},
   },
 
@@ -40,7 +61,7 @@ export default {
     reportCard() {
       if (this.num <= 10) {
         if (this.num > 0 && this.num < 3) {
-          this.result = "Too poor";
+          this.result = this.subject + ": " + "Too poor";
         }
 
         if (this.num >= 3 && this.num < 5) {
